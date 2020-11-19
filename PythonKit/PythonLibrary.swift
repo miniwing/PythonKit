@@ -16,11 +16,15 @@
 
 #if canImport(Darwin)
 import Darwin
+    #if canImport(Symbols)
+    import Symbols
+    #endif
 #elseif canImport(Glibc)
 import Glibc
 #elseif os(Windows)
 import CRT
 import WinSDK
+#elseif canImport(Exports)
 #endif
 
 //===----------------------------------------------------------------------===//
@@ -57,6 +61,14 @@ public struct PythonLibrary {
     
     static func loadSymbol(
         _ libraryHandle: UnsafeMutableRawPointer, _ name: String) -> UnsafeMutableRawPointer? {
+        #if canImport(Symbols)
+        switch name {
+        case PythonLibrary.pythonLegacySymbolName:
+            return nil
+        default:
+            return getSymbol(name)
+        }
+        #endif
         #if canImport(Darwin) || canImport(Glibc)
         return dlsym(libraryHandle, name)
         #elseif os(Windows)
@@ -146,6 +158,8 @@ private extension PythonLibrary {
     }
 }
 
+var foo = 0
+
 // Methods of `PythonLibrary` required to load the Python library.
 private extension PythonLibrary {
     static let supportedMajorVersions: [Int] = [3, 2]
@@ -185,6 +199,10 @@ private extension PythonLibrary {
     }()
     
     static func loadPythonLibrary() -> UnsafeMutableRawPointer? {
+        #if canImport(Symbols)
+        return UnsafeMutableRawPointer(&foo)
+        #endif
+        
         if let pythonLibraryPath = Environment.library.value {
             return loadPythonLibrary(at: pythonLibraryPath)
         }
