@@ -4,9 +4,13 @@ Swift framework to interact with Python.
 
 ## Requirements
 
+This package is modified to support iOS apps with embedded Python.  The following content is mostly about the original version.
+
 `PythonKit` requires [**Swift 5**](https://swift.org/download/) or higher and has been tested on macOS, Linux and Windows.
 
 ## Usage
+
+See https://github.com/kewlbear/YoutubeDL.
 
 Some Python code like this:
 
@@ -35,7 +39,7 @@ print("Python Encoding: \(sys.getdefaultencoding().upper())")
 Add the following dependency to your `Package.swift` manifest:
 
 ```swift
-.package(url: "https://github.com/pvieito/PythonKit.git", .branch("master")),
+.package(url: "https://github.com/kewlbear/PythonKit.git", from: "0.0.1"),
 ```
 
 ## Build & Run
