@@ -17,7 +17,6 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/pvieito/LoggerKit.git", .branch("master")),
         .package(url: "https://github.com/apple/swift-argument-parser", .branch("main")),
-        .package(url: "https://github.com/kewlbear/Python-iOS.git", .branch("main")),
     ],
     targets: [
         .target(
@@ -27,7 +26,6 @@ let package = Package(
         ),
         .target(
             name: "PythonKit",
-            dependencies: ["Python-iOS"],
             path: "PythonKit"
         ),
         .testTarget(
