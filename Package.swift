@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pvieito/LoggerKit.git", .branch("master")),
-        .package(url: "https://github.com/apple/swift-argument-parser", .branch("main")),
+        .package(url: "https://github.com/apple/swift-argument-parser", .branch("0.3.0")),
     ],
     targets: [
         .target(
